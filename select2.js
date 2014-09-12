@@ -2243,6 +2243,26 @@ the specific language governing permissions and limitations under the Apache Lic
                 killEvent(e);
             }));
 
+            selection.on("mousedown touchstart", "abbr.select2-search-choice-link", this.bind(function(e){
+                killEvent(e);
+
+                var link = this.opts.element.data('link');
+                if(link){
+                    var id = this.data();
+                    if(_(id).isObject())
+                        id = id.id;
+
+                    var url = link + '/' + id;
+
+                    if(e.which === 3) // right-click
+                        return;
+                    else if(e.which === 2) // middle-click
+                        window.open(url)
+                    else // left-click
+                        window.location.href = url;
+                }
+            }));
+
             dropdown.on("mousedown touchstart", this.bind(function() {
                 if (this.opts.shouldFocusInput(this)) {
                     this.search.focus();
