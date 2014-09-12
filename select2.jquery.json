@@ -29,7 +29,7 @@
     "bugs": "https://github.com/ivaynberg/select2/issues",
     "homepage": "http://ivaynberg.github.com/select2",
     "docs": "http://ivaynberg.github.com/select2/",
-    "download": "https://github.com/ivaynberg/select2/tags",
+    "download": "https://github.com/outeredge/select2/tags",
     "dependencies": {
         "jquery": ">=1.7.1"
     }
