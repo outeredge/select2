@@ -2381,6 +2381,29 @@ the specific language governing permissions and limitations under the Apache Lic
             var opts = this.parent.prepareOpts.apply(this, arguments),
                 self=this;
 
+            var el = opts.element.get(0);
+            if($(el).find('[data-hide-other-when-selected]').length > 0){
+                var currentOpt = $(el).find(':selected');
+                var currentHide = currentOpt.data('hide-other-when-selected');
+
+                function hideOtherElements(e){
+                    var el = $(e.target);
+                    var changeToOpt = el.find(':selected');
+                    var changeToHide = changeToOpt.data('hide-other-when-selected');
+
+                    el.closest('form').find(currentHide).removeClass('hide');
+                    if(changeToHide)
+                        el.closest('form').find(changeToHide).addClass('hide');
+
+                    currentOpt = changeToOpt;
+                    currentHide = changeToHide;
+                }
+
+                $(el).on('change', hideOtherElements);
+                hideOtherElements({target: el});
+            }
+
+
             if (opts.element.get(0).tagName.toLowerCase() === "select") {
                 // install the selection initializer
                 opts.initSelection = function (element, callback) {
