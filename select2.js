@@ -1962,11 +1962,17 @@ the specific language governing permissions and limitations under the Apache Lic
         // single
 
         createContainer: function () {
-            var container = $(document.createElement("div")).attr({
-                "class": "select2-container"
-            }).html([
+            var html = [
                 "<a href='javascript:void(0)' class='select2-choice' tabindex='-1'>",
-                "   <span class='select2-chosen'>&#160;</span><abbr class='select2-search-choice-close'></abbr>",
+                "   <span class='select2-chosen'>&#160;</span>",
+                "   <div class='select2-actions'>"];
+
+            if(!this.opts.element.attr('data-type') === 'contact' || Zebreco.isGranted('CONTACT_VIEW_ALL')))
+                html = html.concat(["<abbr class='select2-search-choice-link'></abbr>"]);
+
+            html = html.concat([
+                "       <abbr class='select2-search-choice-close'></abbr>",
+                "   </div>",
                 "   <span class='select2-arrow' role='presentation'><b role='presentation'></b></span>",
                 "</a>",
                 "<label for='' class='select2-offscreen'></label>",
@@ -1979,7 +1985,11 @@ the specific language governing permissions and limitations under the Apache Lic
                 "   </div>",
                 "   <ul class='select2-results' role='listbox'>",
                 "   </ul>",
-                "</div>"].join(""));
+                "</div>"];
+
+            var container = $(document.createElement("div")).attr({
+                "class": "select2-container"
+            }).html(html.join(""));
             return container;
         },
 
