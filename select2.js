@@ -3109,9 +3109,21 @@ the specific language governing permissions and limitations under the Apache Lic
                 choice.addClass(cssClass);
             }
 
+            var link = this.opts.element.data('link');
+            if(link)
+                choice.addClass('select2-search-choice-link')
+                    .find('div')
+                    .wrapInner($('<a>', {href: link + '/' + id}));
+
             if(enableChoice){
               choice.find(".select2-search-choice-close")
                   .on("mousedown", killEvent)
+                  .on("mouseenter", function(){
+                      choice.addClass('select2-search-choice-delete');
+                  })
+                  .on("mouseout", function(){
+                      choice.removeClass('select2-search-choice-delete');
+                  })
                   .on("click dblclick", this.bind(function (e) {
                   if (!this.isInterfaceEnabled()) return;
 
