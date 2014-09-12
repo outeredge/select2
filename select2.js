@@ -936,7 +936,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
                     populate=function(results, container, depth) {
 
-                        var i, l, result, selectable, disabled, compound, node, label, innerContainer, formatted;
+                        var i, l, result, selectable, disabled, archived, colour, compound, node, label, innerContainer, formatted;
 
                         results = opts.sortResults(results, container, query);
 
@@ -948,6 +948,8 @@ the specific language governing permissions and limitations under the Apache Lic
 
                             disabled = (result.disabled === true);
                             selectable = (!disabled) && (id(result) !== undefined);
+                            archived = result.archived;
+                            colour = result.colour;
 
                             compound=result.children && result.children.length > 0;
 
@@ -957,8 +959,11 @@ the specific language governing permissions and limitations under the Apache Lic
                             node.addClass(selectable ? "select2-result-selectable" : "select2-result-unselectable");
                             if (disabled) { node.addClass("select2-disabled"); }
                             if (compound) { node.addClass("select2-result-with-children"); }
+                            if (archived) { node.addClass("select2-result-archived"); }
+                            if (colour) { node.addClass("select2-result--" + colour); }
                             node.addClass(self.opts.formatResultCssClass(result));
                             node.attr("role", "presentation");
+
 
                             label=$(document.createElement("div"));
                             label.addClass("select2-result-label");
