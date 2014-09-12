@@ -2524,6 +2524,9 @@ the specific language governing permissions and limitations under the Apache Lic
             if (this.opts.allowClear && this.getPlaceholder() !== undefined) {
                 this.container.addClass("select2-allowclear");
             }
+
+            if(this.opts.element.data('link'))
+                this.container.addClass("select2-allowlink");
         },
 
         // single
