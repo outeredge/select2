@@ -740,6 +740,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
             syncCssClasses(this.dropdown, this.opts.element, this.opts.adaptDropdownCssClass);
 
+            this.dropdown.addClass('select2-drop-' + this.opts.element.attr('id'));
             this.dropdown.addClass(evaluate(opts.dropdownCssClass, this.opts.element));
             this.dropdown.data("select2", this);
             this.dropdown.on("click", killEvent);
