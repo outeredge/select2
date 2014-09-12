@@ -2218,7 +2218,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 }
             }));
 
-            selection.on("mousedown touchstart", "abbr", this.bind(function (e) {
+            selection.on("mousedown touchstart", "abbr.select2-search-choice-close", this.bind(function (e) {
                 if (!this.isInterfaceEnabled()) return;
                 this.clear();
                 killEventImmediately(e);
