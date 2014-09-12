@@ -1698,7 +1698,7 @@ the specific language governing permissions and limitations under the Apache Lic
          * @param initial whether or not this is the call to this method right after the dropdown has been opened
          */
         // abstract
-        updateResults: function (initial) {
+        updateResults: function (initial, tokenizeOnEnter) {
             var search = this.search,
                 results = this.results,
                 opts = this.opts,
@@ -1775,7 +1775,7 @@ the specific language governing permissions and limitations under the Apache Lic
             this.removeHighlight();
 
             // give the tokenizer a chance to pre-process the input
-            input = this.tokenize();
+            input = this.tokenize(tokenizeOnEnter);
             if (input != undefined && input != null) {
                 search.val(input);
             }
@@ -3053,9 +3053,9 @@ the specific language governing permissions and limitations under the Apache Lic
         },
 
         // multi
-        tokenize: function() {
+        tokenize: function(tokenizeOnEnter) {
             var input = this.search.val();
-            input = this.opts.tokenizer.call(this, input, this.data(), this.bind(this.onSelect), this.opts);
+            input = this.opts.tokenizer.call(this, input, this.data(), this.bind(this.onSelect), this.opts, tokenizeOnEnter);
             if (input != null && input != undefined) {
                 this.search.val(input);
                 if (input.length > 0) {
