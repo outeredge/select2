@@ -1394,6 +1394,12 @@ the specific language governing permissions and limitations under the Apache Lic
          */
         // abstract
         opening: function() {
+
+            if(this.opts.element.data('no-results')){
+                this.updateResults(true);
+                return;
+            }
+
             var cid = this.containerEventName,
                 scroll = "scroll." + cid,
                 resize = "resize."+cid,
@@ -1404,8 +1410,9 @@ the specific language governing permissions and limitations under the Apache Lic
 
             this.clearDropdownAlignmentPreference();
 
-            if(this.dropdown[0] !== this.body.children().last()[0]) {
-                this.dropdown.detach().appendTo(this.body);
+            if(!this.dropdown.data('dom')){
+                this.container.after(this.dropdown);
+                this.dropdown.data('dom', true);
             }
 
             // create the dropdown mask if doesn't already exist
