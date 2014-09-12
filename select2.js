@@ -2237,8 +2237,23 @@ the specific language governing permissions and limitations under the Apache Lic
                 if (this.opened()) {
                     this.close();
                 } else if (this.isInterfaceEnabled()) {
-                    this.open();
+                    var $this = this;
+                    this.holdTimeout = setTimeout(function(){
+                        $this.opts.element.trigger('select2:context:menu');
+                    }, 750);
+                    this.mousedownTimestamp = e.timeStamp;
                 }
+
+                $('.select2-context-menu').remove();
+
+                killEvent(e);
+            }));
+
+            selection.on("mouseup touchend", this.bind(function(e){
+                clearTimeout(this.holdTimeout);
+                var clickLength = e.timeStamp - this.mousedownTimestamp;
+                if(clickLength < 750)
+                    this.open();
 
                 killEvent(e);
             }));
