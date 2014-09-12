@@ -1229,9 +1229,12 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // abstract
         positionDropdown: function() {
+            var offset = container.offset();
+            if(container.closest('.relative').length > 0 || container.closest('[data-scroller].scrollable').length > 0)
+                offset = container.position();
+
             var $dropdown = this.dropdown,
                 container = this.container,
-                offset = container.offset(),
                 height = container.outerHeight(false),
                 width = container.outerWidth(false),
                 dropHeight = $dropdown.outerHeight(false),
@@ -1324,6 +1327,10 @@ the specific language governing permissions and limitations under the Apache Lic
             };
 
             if (above) {
+                if(this instanceof MultiSelect2)
+                    // Offset should be based on search field not the entire element
+                    offset = this.container.find('.select2-search-field').offset();
+
                 css.top = offset.top - dropHeight;
                 css.bottom = 'auto';
                 this.container.addClass("select2-drop-above");
