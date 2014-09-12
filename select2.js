@@ -1992,7 +1992,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 "   </div>",
                 "   <ul class='select2-results' role='listbox'>",
                 "   </ul>",
-                "</div>"];
+                "</div>"]);
 
             var container = $(document.createElement("div")).attr({
                 "class": "select2-container"
