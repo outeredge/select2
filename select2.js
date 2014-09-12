@@ -2894,8 +2894,13 @@ the specific language governing permissions and limitations under the Apache Lic
             this.search.on("keyup", this.bind(function (e) {
                 this.keydowns = 0;
                 this.resizeSearch();
-            })
-            );
+
+                // Tokenize on enter support
+                if(!this.enabledInterface) return;
+                if(!this.opts.tokenSeparators || this.opts.tokenSeparators.length < 1) return;
+                if(e.which === KEY.ENTER)
+                    this.updateResults(true, true);
+            }));
 
             this.search.on("blur", this.bind(function(e) {
                 this.container.removeClass("select2-container-active");
