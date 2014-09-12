@@ -3124,12 +3124,14 @@ the specific language governing permissions and limitations under the Apache Lic
         },
 
         addSelectedChoice: function (data) {
+
+            var enabledHtml = "<li class='select2-search-choice'><div></div><span class='select2-actions'>";
+            if(this.opts.element.data('link'))
+                enabledHtml += "<a href='javascript:void(0);' onclick='return false;' class='select2-search-choice-link'></a>";
+            enabledHtml += "<a href='javascript:void(0);' class='select2-search-choice-close' tabindex='-1'></a></li>";
+
             var enableChoice = !data.locked,
-                enabledItem = $(
-                    "<li class='select2-search-choice'>" +
-                    "    <div></div>" +
-                    "    <a href='#' class='select2-search-choice-close' tabindex='-1'></a>" +
-                    "</li>"),
+                enabledItem = $(enabledHtml),
                 disabledItem = $(
                     "<li class='select2-search-choice select2-locked'>" +
                     "<div></div>" +
@@ -3140,6 +3142,9 @@ the specific language governing permissions and limitations under the Apache Lic
                 formatted,
                 cssClass;
 
+            if(_(data).has('colour'))
+                choice.addClass('select2-search-choice--' + data.colour);
+
             formatted=this.opts.formatSelection(data, choice.find("div"), this.opts.escapeMarkup);
             if (formatted != undefined) {
                 choice.find("div").replaceWith("<div>"+formatted+"</div>");
@@ -3149,13 +3154,22 @@ the specific language governing permissions and limitations under the Apache Lic
                 choice.addClass(cssClass);
             }
 
-            var link = this.opts.element.data('link');
-            if(link)
-                choice.addClass('select2-search-choice-link')
-                    .find('div')
-                    .wrapInner($('<a>', {href: link + '/' + id}));
-
             if(enableChoice){
+              choice.find(".select2-search-choice-link")
+                  .on("click", this.bind(function(e){
+                      killEvent(e);
+
+                      var link = this.opts.element.data('link');
+                      if(link){
+                          var url = link + '/' + id;
+                          if(e.which === 3) // right-click
+                              return
+                          else if(e.which === 2) // middle-click
+                              window.open(url);
+                          else
+                              window.location.href = url;
+                      }
+                  }));
               choice.find(".select2-search-choice-close")
                   .on("mousedown", killEvent)
                   .on("mouseenter", function(){
