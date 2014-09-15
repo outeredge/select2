@@ -2467,6 +2467,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 this.selection.addClass("select2-default");
 
                 this.container.removeClass("select2-allowclear");
+                this.container.removeClass("select2-allowlink");
             }
         },
 
