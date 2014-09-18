@@ -1975,7 +1975,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 "   <span class='select2-chosen'>&#160;</span>",
                 "   <div class='select2-actions'>"];
 
-            if(!this.opts.element.attr('data-type') === 'contact' || Zebreco.isGranted('CONTACT_VIEW_ALL'))
+            if(!this.opts.element.attr('data-type') === 'contact' || (Zebreco && Zebreco.isGranted('CONTACT_VIEW_ALL')))
                 html = html.concat(["<abbr class='select2-search-choice-link'></abbr>"]);
 
             html = html.concat([
