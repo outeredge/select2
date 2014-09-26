@@ -3131,7 +3131,7 @@ the specific language governing permissions and limitations under the Apache Lic
         addSelectedChoice: function (data) {
 
             var enabledHtml = "<li class='select2-search-choice'><div></div><span class='select2-actions'>";
-            if(this.opts.element.data('link'))
+            if(this.opts.element.data('link') && (window.Zebreco && Zebreco.isGranted('CONTACT_VIEW_ALL')))
                 enabledHtml += "<a href='javascript:void(0);' onclick='return false;' class='select2-search-choice-link'></a>";
             enabledHtml += "<a href='javascript:void(0);' class='select2-search-choice-close' tabindex='-1'></a></li>";
 
