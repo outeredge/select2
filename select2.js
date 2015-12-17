@@ -1231,8 +1231,14 @@ the specific language governing permissions and limitations under the Apache Lic
         // abstract
         positionDropdown: function() {
             var offset = this.container.offset();
-            if(this.container.closest('.relative').length > 0 || this.container.closest('[data-scroller].scrollable').length > 0)
+
+            var offsetParent = this.container.parentsUntil().each(function(){
+                if ($(this).css('position') === 'relative')
+                    return $(this);
+            });
+            if (offsetParent || this.container.closest('.relative').length > 0 || this.container.closest('[data-scroller].scrollable').length > 0) {
                 offset = this.container.position();
+            }
 
             var $dropdown = this.dropdown,
                 container = this.container,
